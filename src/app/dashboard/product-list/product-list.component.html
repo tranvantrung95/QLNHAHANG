@@ -1,0 +1,66 @@
+<div class="p-6 bg-white rounded-xl shadow-lg mb-6"> 
+    <!-- Phần tiêu đề và tổng số sản phẩm -->
+    <div class="flex justify-between items-center mb-4">
+      <div>
+        <h2 class="text-lg font-semibold">Product List</h2>
+        <!-- Sử dụng flex để đảm bảo "390" và "+12" thẳng hàng -->
+        <div class="flex items-center">
+          <p class="text-3xl font-bold">390</p>
+          <!-- Thêm span bao quanh +12 với nền xanh nhạt và bo tròn -->
+        
+          <span class="text-green-500 font-bold text-sm bg-green-100 px-2 py-1 rounded-full ml-2">+12</span>
+        </div>
+      </div>
+      <button class="bg-gray-200 p-2 rounded-full">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+    </div>
+  
+    <!-- Thanh tìm kiếm và nút refresh -->
+    <div class="flex items-center mb-4">
+      <input
+        type="text"
+        placeholder="Search product..."
+        class="border border-gray-300 rounded-lg p-2 flex-1"
+      />
+      <button class="ml-4 bg-gray-200 p-2 rounded-lg">
+        <i class="fas fa-redo"></i> Refresh
+      </button>
+    </div>
+  
+    <!-- Bảng sản phẩm -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white">
+        <thead>
+          <tr class="text-left border-b">
+            <th class="py-3 px-6">Product Info</th>
+            <th class="py-3 px-6">Price</th>
+            <th class="py-3 px-6">Stock</th>
+            <th class="py-3 px-6">Sold</th>
+            <th class="py-3 px-6">Active</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products" class="border-b hover:bg-gray-100">
+            <td class="py-3 px-6 flex items-center">
+              <img
+                [src]="product.image"
+                alt="Product Image"
+                class="h-10 w-10 rounded-full mr-4"
+              />
+              {{ product.name }}
+            </td>
+            <td class="py-3 px-6">{{ product.price | currency:'USD' }}</td>
+            <td class="py-3 px-6">{{ product.stock }}</td>
+            <td class="py-3 px-6">{{ product.sold }}</td>
+            <td class="py-3 px-6">
+              <label class="switch">
+                <input type="checkbox" [checked]="product.active" />
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

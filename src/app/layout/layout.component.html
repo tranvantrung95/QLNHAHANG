@@ -1,16 +1,15 @@
 <div class="flex h-screen">
-  <!-- Sidebar -->
-  <app-navigation></app-navigation>
+  <!-- Sidebar (Navigation) -->
+  <app-navigation class="w-64 fixed h-screen top-0 left-0"></app-navigation>
 
   <!-- Main content area -->
-  <div class="flex-1 flex flex-col">
-    <!-- Header -->
-    <app-header></app-header>
+  <div class="ml-64 flex-1 flex flex-col">
+    <!-- Header (fixed at the top) -->
+    <app-header class="fixed top-0 left-64 right-0 h-16 bg-white shadow-lg z-10"></app-header>
 
     <!-- Main body area -->
-    <main class="flex-1 p-6 bg-gray-100">
+    <main class="flex-1 p-6 bg-gray-100 mt-16 overflow-y-auto">
       <app-body></app-body>
     </main>
-    
   </div>
 </div>

@@ -9,7 +9,13 @@ import {NavigationComponent} from '../layout/navigation/navigation.component';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterModule,BodyComponent,FooterComponent,HeaderComponent,NavigationComponent],
+  imports: [
+    RouterModule,
+    BodyComponent,
+    FooterComponent,
+    HeaderComponent,
+    NavigationComponent,
+  ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
