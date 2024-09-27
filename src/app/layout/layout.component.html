@@ -1,32 +1,16 @@
-<div class="min-h-screen flex flex-col">
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <app-navigation></app-navigation>
+
+  <!-- Main content area -->
+  <div class="flex-1 flex flex-col">
     <!-- Header -->
-    <header class="bg-blue-600 text-white p-4">
-      <h1 class="text-2xl font-bold">QLNhaHang</h1>
-    </header>
-  
-    <!-- Body -->
-    <div class="flex flex-1">
-      <!-- Sidebar -->
-      <aside class="w-64 bg-gray-800 text-white p-4">
-        <nav>
-          <ul>
-            <li class="mb-4">
-              <a href="#" class="text-lg hover:text-blue-300">Dashboard</a>
-            </li>
-            <li class="mb-4">
-              <a href="#" class="text-lg hover:text-blue-300">User Management</a>
-            </li>
-            <li class="mb-4">
-              <a href="#" class="text-lg hover:text-blue-300">Reports</a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-  
-      <!-- Main Content -->
-      <main class="flex-1 bg-gray-100 p-6">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
+    <app-header></app-header>
+
+    <!-- Main body area -->
+    <main class="flex-1 p-6 bg-gray-100">
+      <app-body></app-body>
+    </main>
+    
   </div>
-  
+</div>
