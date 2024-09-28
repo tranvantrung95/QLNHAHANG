@@ -1,15 +1,27 @@
-<p>Danh sách bàn</p>
+<p class="text-lg font-bold mb-4">Danh sách bàn</p>
 
 <div *ngFor="let tang of dsTang">
-    <h2>{{ tang.tenTang }}</h2>
-    <div *ngFor="let khuVuc of tang.dsKhuVuc">
-        <h3>{{ khuVuc.tenKhuVuc }}</h3>
-        <div class="ban-grid">
-            <div *ngFor="let ban of khuVuc.dsBan" class="ban-item">
-                <p>{{ ban.tenBan }}</p>
-                <span>
-                    {{ ban.trangThai }}
-                </span>
+    <h2 class="text-xl font-semibold mb-4">{{ tang.tenTang }}</h2>
+
+    <!-- Tabs Container -->
+    <div class="border-b border-gray-300 mb-4">
+        <ul class="flex">
+            <li *ngFor="let khuVuc of tang.dsKhuVuc; let i = index" (click)="selectedTab = i"
+                [class.bg-blue-500]="selectedTab === i" [class.text-white]="selectedTab === i"
+                class="cursor-pointer px-4 py-2 border-b-2 border-transparent hover:border-blue-500 hover:text-blue-500 transition">
+                {{ khuVuc.tenKhuVuc }}
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Content -->
+    <div *ngFor="let khuVuc of tang.dsKhuVuc; let i = index" [hidden]="selectedTab !== i"
+        class="p-4 border-dashed border-2 border-gray-500 rounded">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div *ngFor="let ban of khuVuc.dsBan"
+                class="border-dashed border-2 border-gray-400 p-4 rounded-lg text-center">
+                <p class="font-semibold">{{ ban.tenBan }}</p>
+                <span class="text-sm text-gray-600">{{ ban.trangThai }}</span>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; // Import OnInit từ @angular/core
+import { Component, OnInit } from '@angular/core';
 import { Tang } from '../models/tang'; // Import interface Tầng
 import { duLieuGia } from '../models/mock-data'; // Import dữ liệu giả
 import { CommonModule } from '@angular/common';
@@ -8,58 +8,18 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './quan-ly-ban.component.html',
-  styleUrl: './quan-ly-ban.component.css'
+  styleUrls: ['./quan-ly-ban.component.css'] // Sử dụng styleUrls (số nhiều)
 })
-
-// export class QuanLyBanComponent implements OnInit {
-//   dsTang: any[] = [];
-
-//   ngOnInit(): void {
-//     this.dsTang = [
-//       {
-//         maTang: 1,
-//         tenTang: 'Tầng 1',
-//         dsKhuVuc: [
-//           {
-//             maKhuVuc: 1,
-//             tenKhuVuc: 'Khu A',
-//             dsBan: [
-//               { maBan: 1, tenBan: 'Bàn 1', trangThai: 'Trống', maQr: 'https://example.com/qrcode1' },
-//               { maBan: 2, tenBan: 'Bàn 2', trangThai: 'Đã đặt', maQr: 'https://example.com/qrcode2' }
-//             ]
-//           }
-//         ]
-//       }
-//     ];
-//   }
-// }
-
-
-export class QuanLyBanComponent implements OnInit { // Sử dụng OnInit ở đây
+export class QuanLyBanComponent implements OnInit {
   dsTang: Tang[] = []; // Sử dụng interface Tầng để định nghĩa danh sách tầng
+  selectedTab: number = 0; // Khai báo biến selectedTab để quản lý tab
 
-  ngOnInit(): void { // Hàm OnInit, được gọi khi component được khởi tạo
+  ngOnInit(): void {
     // Gán dữ liệu giả vào danh sách tầng
     this.dsTang = duLieuGia;
-
-    // this.dsTang = [
-    //   {
-    //     maTang: 1,
-    //     tenTang: 'Tầng 1',
-    //     dsKhuVuc: [
-    //       {
-    //         maKhuVuc: 1,
-    //         tenKhuVuc: 'Khu A',
-    //         dsBan: [
-    //           { maBan: 1, tenBan: 'Bàn 1', trangThai: 'Trống', maQr: 'https://example.com/qrcode1' },
-    //           { maBan: 2, tenBan: 'Bàn 2', trangThai: 'Đã đặt', maQr: 'https://example.com/qrcode2' }
-    //         ]
-    //       }
-    //     ]
-    //   }
-    // ];
   }
 
+  // Hàm để xác định class của trạng thái bàn
   getTrangThaiClass(trangThai: string): string {
     switch (trangThai) {
       case 'Trống':
@@ -73,5 +33,10 @@ export class QuanLyBanComponent implements OnInit { // Sử dụng OnInit ở đ
       default:
         return '';
     }
+  }
+
+  // Hàm để thay đổi tab khi nhấn vào
+  changeTab(index: number): void {
+    this.selectedTab = index;
   }
 }
