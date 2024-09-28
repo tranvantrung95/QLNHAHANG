@@ -1,0 +1,16 @@
+<p>Danh sách bàn</p>
+
+<div *ngFor="let tang of dsTang">
+    <h2>{{ tang.tenTang }}</h2>
+    <div *ngFor="let khuVuc of tang.dsKhuVuc">
+        <h3>{{ khuVuc.tenKhuVuc }}</h3>
+        <div class="ban-grid">
+            <div *ngFor="let ban of khuVuc.dsBan" class="ban-item">
+                <p>{{ ban.tenBan }}</p>
+                <span>
+                    {{ ban.trangThai }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
