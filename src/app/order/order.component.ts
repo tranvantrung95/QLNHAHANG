@@ -79,6 +79,19 @@ export class OrderComponent implements OnInit {
     }
   }
 
+  // Xóa món ăn khỏi danh sách đã đặt
+xoaMon(mon: MonAn) {
+  // Loại bỏ món khỏi danh sách đặt món
+  this.danhSachDatMon = this.danhSachDatMon.filter(m => m !== mon);
+
+  // Tìm lại món trong danh sách món ăn và đặt trạng thái daChon = false để có thể chọn lại
+  const monAn = this.danhSachMonAn.find(m => m.tenMon === mon.tenMon);
+  if (monAn) {
+    monAn.daChon = false;
+  }
+}
+
+
   // In bill (Thanh toán)
   inBill() {
     console.log('In hóa đơn:', this.danhSachDatMon);
