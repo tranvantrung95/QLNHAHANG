@@ -1,9 +1,55 @@
+<!-- <app-order></app-order> -->
+
+
+
 <p class="text-lg font-bold mb-4">Danh sách bàn</p>
 
-<div *ngFor="let tang of dsTang">
-    <h2 class="text-xl font-semibold mb-4">{{ tang.tenTang }}</h2>
+<!-- Tabs cho ALL và các tầng -->
+<div class="border-b border-gray-300 mb-4">
+    <ul class="flex">
+        <!-- Tab ALL -->
+        <li (click)="selectedTang = -1" [class.bg-blue-500]="selectedTang === -1"
+            [class.text-white]="selectedTang === -1"
+            class="cursor-pointer px-4 py-2 border-b-2 border-transparent hover:border-blue-500 hover:text-blue-500 transition">
+            ALL
+        </li>
 
-    <!-- Tabs Container -->
+        <!-- Tabs cho các tầng -->
+        <li *ngFor="let tang of dsTang; let idxTang = index" (click)="selectedTang = idxTang"
+            [class.bg-blue-500]="selectedTang === idxTang" [class.text-white]="selectedTang === idxTang"
+            class="cursor-pointer px-4 py-2 border-b-2 border-transparent hover:border-blue-500 hover:text-blue-500 transition">
+            {{ tang.tenTang }}
+        </li>
+    </ul>
+</div>
+
+<!-- Nội dung tab ALL -->
+<div *ngIf="selectedTang === -1" class="p-4 border-dashed border-2 border-gray-500 rounded">
+    <div class="flex gap-2 mb-3 flex-wrap">
+        <div *ngFor="let tang of dsTang">
+            <div *ngFor="let khuVuc of tang.dsKhuVuc" class="flex gap-2 flex-wrap">
+                <!-- Thông tin Khu Vực -->
+                <div class="border-dashed border-2 border-gray-400 p-4 rounded-lg text-center min-w-[150px] mb-4">
+                    <div class="font-bold mb-2">{{ khuVuc.tenKhuVuc }}</div>
+
+                    <!-- Bàn trong từng Khu Vực -->
+                    <div class="flex gap-2 flex-wrap">
+                        <div *ngFor="let ban of khuVuc.dsBan" (click)="openOrder(ban)"
+                            class="border-dashed border-2 border-gray-400 p-4 rounded-lg text-center min-w-[100px] flex-grow cursor-pointer hover:bg-gray-100">
+                            <p class="font-semibold">{{ ban.tenBan }}</p>
+                            <span class="text-sm text-gray-600">{{ ban.trangThai }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Nội dung cho từng tầng -->
+<div *ngFor="let tang of dsTang; let idxTang = index" [hidden]="selectedTang !== idxTang">
+    <!-- Tabs cho khu vực trong từng tầng -->
     <div class="border-b border-gray-300 mb-4">
         <ul class="flex">
             <li *ngFor="let khuVuc of tang.dsKhuVuc; let i = index" (click)="selectedTab = i"
@@ -14,10 +60,10 @@
         </ul>
     </div>
 
-    <!-- Tab Content -->
+    <!-- Nội dung của khu vực -->
     <div *ngFor="let khuVuc of tang.dsKhuVuc; let i = index" [hidden]="selectedTab !== i"
         class="p-4 border-dashed border-2 border-gray-500 rounded">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
             <div *ngFor="let ban of khuVuc.dsBan"
                 class="border-dashed border-2 border-gray-400 p-4 rounded-lg text-center">
                 <p class="font-semibold">{{ ban.tenBan }}</p>

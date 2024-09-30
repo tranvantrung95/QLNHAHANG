@@ -13,3 +13,27 @@
 .trang-thai-can-don-dep {
     color: blue;
 }
+
+/* Ghi đè cdk-overlay-pane để đảm bảo chiều rộng không bị giới hạn */
+::ng-deep .cdk-overlay-pane {
+    max-width: 100% !important;
+    /* Gỡ bỏ giới hạn chiều rộng mặc định */
+    width: 1500px !important;
+    /* Đặt chiều rộng theo mong muốn */
+}
+
+::ng-deep .mat-mdc-dialog-panel {
+    max-width: none !important;
+    /* Gỡ bỏ giới hạn chiều rộng của Angular Material */
+    width: 100% !important;
+    /* Đảm bảo modal chiếm hết chiều rộng của container */
+}
+
+::ng-deep .custom-dialog-container {
+    width: 1500px !important;
+    /* Đặt chiều rộng modal */
+    height: auto !important;
+    /* Đảm bảo chiều cao tự động */
+    max-height: 90vh !important;
+    /* Giới hạn chiều cao tối đa để có thể cuộn */
+}

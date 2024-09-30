@@ -1,0 +1,84 @@
+<div class="p-4 h-full">
+    <!-- Hiển thị tên bàn -->
+    <h1 class="text-2xl font-bold mb-4">Order cho bàn: {{ tenBan }}</h1>
+
+    <!-- Giao diện order -->
+    <div class="flex h-full">
+
+        <!-- Bên trái: Danh sách món đặt -->
+        <div class="w-2/5 border-r border-gray-300 p-4 h-[70vh] scrollable-left">
+            <h2 class="text-xl font-bold mb-4">Danh sách món đặt</h2>
+
+            <!-- Danh sách món đặt với 4 cột -->
+            <table class="w-full table-auto">
+                <thead>
+                    <tr>
+                        <th class="text-left">Tên món</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Đơn giá</th>
+                        <th class="text-right">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mon of danhSachDatMon" class="border-b">
+                        <td class="py-2">{{ mon.tenMon }}</td>
+                        <td class="py-2 text-center">
+                            <button (click)="giamSoLuong(mon)"
+                                class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                            <span class="mx-2">{{ mon.soLuong }}</span>
+                            <button (click)="tangSoLuong(mon)"
+                                class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                        </td>
+                        <!-- Đơn giá định dạng số kiểu Việt Nam -->
+                        <td class="py-2 text-center">{{ mon.donGia.toLocaleString('vi-VN') }} VND</td>
+                        <!-- Thành tiền cũng định dạng số kiểu Việt Nam -->
+                        <td class="py-2 text-right font-bold">
+                            {{ ((mon.soLuong || 0) * (mon.donGia || 0)).toLocaleString('vi-VN') }} VND
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Tổng tiền -->
+            <div class="mt-6 border-t pt-4">
+                <div class="flex justify-between font-bold text-lg">
+                    <span>Tổng cộng</span>
+                    <!-- Tổng cộng cũng định dạng số kiểu Việt Nam -->
+                    <span>{{ tongTien.toLocaleString('vi-VN') }} VND</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bên phải: Tab danh sách món ăn và thanh toán -->
+        <div class="w-3/5 p-4 h-[70vh] scrollable-right">
+            <div class="flex mb-4">
+                <button (click)="activeTab = 'monAn'" [class.bg-blue-500]="activeTab === 'monAn'"
+                    class="px-4 py-2 mr-2 text-white bg-gray-300 rounded-lg">Danh sách món</button>
+
+                <button (click)="activeTab = 'thanhToan'" [class.bg-blue-500]="activeTab === 'thanhToan'"
+                    class="px-4 py-2 text-white bg-gray-300 rounded-lg">Thanh toán</button>
+            </div>
+
+            <!-- Nội dung tab: Danh sách món ăn -->
+            <div *ngIf="activeTab === 'monAn'">
+                <h2 class="text-xl font-bold mb-4">Danh sách món ăn</h2>
+                <ul class="grid grid-cols-2 gap-4">
+                    <li *ngFor="let monAn of danhSachMonAn"
+                        class="border p-4 rounded-lg flex justify-between items-center">
+                        <span>{{ monAn.tenMon }}</span>
+                        <button (click)="chonMon(monAn)" [disabled]="monAn.daChon"
+                            class="px-4 py-2 bg-blue-500 text-white rounded-lg">
+                            {{ monAn.daChon ? 'Đã chọn' : 'Chọn' }}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Nội dung tab: Thanh toán -->
+            <div *ngIf="activeTab === 'thanhToan'">
+                <h2 class="text-xl font-bold mb-4">Thanh toán</h2>
+                <button (click)="inBill()" class="px-4 py-2 bg-green-500 text-white rounded-lg">In hóa đơn</button>
+            </div>
+        </div>
+    </div>
+</div>

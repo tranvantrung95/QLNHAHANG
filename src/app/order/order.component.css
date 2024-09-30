@@ -1,0 +1,15 @@
+/* Cho phép cuộn dọc cho khu vực bên trái (Danh sách món đặt) */
+.scrollable-left {
+    max-height: 90vh;
+    /* Giới hạn chiều cao là 90% màn hình */
+    overflow-y: auto;
+    /* Cho phép cuộn dọc */
+}
+
+/* Cho phép cuộn dọc cho khu vực bên phải (Tab danh sách món ăn và thanh toán) */
+.scrollable-right {
+    max-height: 90vh;
+    /* Giới hạn chiều cao là 90% màn hình */
+    overflow-y: auto;
+    /* Cho phép cuộn dọc */
+}
