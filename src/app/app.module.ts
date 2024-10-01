@@ -8,6 +8,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { OrderComponent } from './order/order.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Thêm phần này
 import { MatDialogModule } from '@angular/material/dialog'; // Thêm phần này
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog'; // Thêm phần này
     ]),
     BrowserAnimationsModule, // Đảm bảo đã thêm BrowserAnimationsModule
     MatDialogModule,
+    QRCodeModule,
   ],
   bootstrap: [],
 })

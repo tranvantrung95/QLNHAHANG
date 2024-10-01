@@ -61,14 +61,46 @@
             </div>
         </div>
 
-        <!-- Bên phải: Tab danh sách món ăn và thanh toán -->
+        <!-- Bên phải: Tabs -->
         <div class="w-3/5 p-4 h-[70vh] scrollable-right">
+            <!-- Thêm nút "Thông tin bàn" -->
             <div class="flex mb-4">
+                <button (click)="activeTab = 'thongTinBan'" [class.bg-blue-500]="activeTab === 'thongTinBan'"
+                    class="px-4 py-2 mr-2 text-white bg-gray-300 rounded-lg">Thông tin bàn</button>
                 <button (click)="activeTab = 'monAn'" [class.bg-blue-500]="activeTab === 'monAn'"
                     class="px-4 py-2 mr-2 text-white bg-gray-300 rounded-lg">Danh sách món</button>
-
                 <button (click)="activeTab = 'thanhToan'" [class.bg-blue-500]="activeTab === 'thanhToan'"
                     class="px-4 py-2 text-white bg-gray-300 rounded-lg">Thanh toán</button>
+            </div>
+
+            <!-- Nội dung tab: Thông tin bàn -->
+            <div *ngIf="activeTab === 'thongTinBan'">
+                <h2 class="text-xl font-bold mb-4">Thông tin bàn</h2>
+
+                <!-- Hiển thị thông tin chi tiết của bàn -->
+                <div class="mb-4">
+                    <p><strong>Tên bàn:</strong> {{ tenBan }}</p>
+                    <p><strong>Trạng thái:</strong> {{ trangThaiBan }}</p>
+                </div>
+
+                <!-- Thay đổi trạng thái của bàn -->
+                <div class="mb-4">
+                    <label for="trangThai">Thay đổi trạng thái bàn:</label>
+                    <select id="trangThai" [(ngModel)]="trangThaiBan" (change)="thayDoiTrangThaiBan(trangThaiBan)"
+                        class="border p-2 rounded">
+                        <option *ngFor="let tt of trangThaiOptions" [value]="tt">{{ tt }}</option>
+                    </select>
+                </div>
+
+                <!-- Nếu bàn ở trạng thái đặt trước, hiển thị thông tin đặt -->
+                <div *ngIf="trangThaiBan === 'Đã đặt'">
+                    <h3 class="text-lg font-bold mb-2">Thông tin đặt trước</h3>
+                    <p><strong>Họ tên:</strong> {{ thongTinDat.hoTen }}</p>
+                    <p><strong>Số điện thoại:</strong> {{ thongTinDat.soDienThoai }}</p>
+                    <p><strong>Thời gian đến:</strong> {{ thongTinDat.thoiGianDen }}</p>
+                    <p><strong>Số lượng người lớn:</strong> {{ thongTinDat.soNguoiLon }}</p>
+                    <p><strong>Số lượng trẻ em:</strong> {{ thongTinDat.soTreEm }}</p>
+                </div>
             </div>
 
             <!-- Nội dung tab: Danh sách món ăn -->
@@ -89,7 +121,21 @@
             <!-- Nội dung tab: Thanh toán -->
             <div *ngIf="activeTab === 'thanhToan'">
                 <h2 class="text-xl font-bold mb-4">Thanh toán</h2>
-                <button (click)="inBill()" class="px-4 py-2 bg-green-500 text-white rounded-lg">In hóa đơn</button>
+                <!-- Hiển thị mã QRCode -->
+                <div class="flex flex-col items-center">
+                    <!-- Hiển thị ảnh QR code -->
+                    <img [src]="qrData" alt="QR Code" width="400" height="400" class="mb-4" />
+
+                    <!-- Thông tin thanh toán -->
+                    <p class="text-lg font-semibold">Ngân hàng: Techcombank</p>
+                    <p class="text-lg font-semibold">Số tài khoản: {{ accountNumber }}</p>
+                    <p class="text-lg font-semibold">Số tiền: {{ amount.toLocaleString('vi-VN') }} VND</p>
+                    <p class="text-lg font-semibold">Nội dung CK: {{ transferContent }}</p>
+
+                    <!-- Nút in hóa đơn -->
+                    <button (click)="inBill()"
+                        class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg">In hóa đơn</button>
+                </div>
             </div>
         </div>
     </div>

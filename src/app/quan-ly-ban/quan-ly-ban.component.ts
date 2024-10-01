@@ -59,7 +59,10 @@ export class QuanLyBanComponent implements OnInit {
 openOrder(ban: any) {
   const dialogRef = this.dialog.open(OrderComponent, {
     panelClass: 'custom-dialog-container', // Áp dụng lớp tùy chỉnh
-    data: { tenBan: ban.tenBan, danhSachDatMon: [] },
+    data: { 
+      tenBan: ban.tenBan,
+      trangThai: ban.trangThai,
+      danhSachDatMon: [] },
     autoFocus: false,
     disableClose: false
   });
