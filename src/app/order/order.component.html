@@ -5,13 +5,13 @@
     <!-- Giao diện order -->
     <div class="flex h-full">
 
-        <!-- Bên trái: Danh sách món đặt -->
-        <div class="w-2/5 border-r border-gray-300 p-4 h-[70vh] flex flex-col">
+        <!-- Bên trái: Danh sách món đặt (chiếm 40%) -->
+        <div class="w-[40%] border-r border-gray-300 p-4 h-[70vh] flex flex-col">
             <h2 class="text-xl font-bold mb-4">Danh sách món đặt</h2>
 
             <!-- Phần tiêu đề cố định -->
             <table class="w-full table-auto">
-                <thead class="sticky top-0 ">
+                <thead class="sticky top-0">
                     <tr>
                         <th class="text-left">Tên món</th>
                         <th class="text-center">Số lượng</th>
@@ -31,20 +31,16 @@
                             <td class="py-2 text-center">
                                 <button (click)="giamSoLuong(mon)"
                                     class="px-2 py-1 bg-red-500 text-white rounded">-</button>
-                                <span class="mx-2">{{ mon.soLuong }}</span>
+                                <span class="mx-2 display inline-block w-5">{{ mon.soLuong }}</span>
                                 <button (click)="tangSoLuong(mon)"
                                     class="px-2 py-1 bg-green-500 text-white rounded">+</button>
                             </td>
-                            <!-- Đơn giá định dạng số kiểu Việt Nam -->
                             <td class="py-2 text-center">{{ mon.donGia.toLocaleString('vi-VN') }} VND</td>
-                            <!-- Thành tiền cũng định dạng số kiểu Việt Nam -->
                             <td class="py-2 text-right font-bold">
                                 {{ ((mon.soLuong || 0) * (mon.donGia || 0)).toLocaleString('vi-VN') }} VND
                             </td>
-                            <!-- Nút xóa món -->
                             <td class="py-2 text-right">
-                                <button (click)="xoaMon(mon)"
-                                    class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                                <button (click)="xoaMon(mon)" class="px-2 py-1 bg-red-500 text-white rounded">-</button>
                             </td>
                         </tr>
                     </tbody>
@@ -55,86 +51,142 @@
             <div class="mt-6 border-t pt-4 sticky bottom-0">
                 <div class="flex justify-between font-bold text-lg">
                     <span>Tổng cộng</span>
-                    <!-- Tổng cộng cũng định dạng số kiểu Việt Nam -->
                     <span>{{ tongTien.toLocaleString('vi-VN') }} VND</span>
                 </div>
             </div>
         </div>
 
-        <!-- Bên phải: Tabs -->
-        <div class="w-3/5 p-4 h-[70vh] scrollable-right">
-            <!-- Thêm nút "Thông tin bàn" -->
+        <!-- Bên phải: Tabs (chiếm 60%) -->
+        <div class="w-[60%] p-4 h-[70vh] flex flex-col">
+            <!-- Tabs -->
             <div class="flex mb-4">
-                <button (click)="activeTab = 'thongTinBan'" [class.bg-blue-500]="activeTab === 'thongTinBan'"
-                    class="px-4 py-2 mr-2 text-white bg-gray-300 rounded-lg">Thông tin bàn</button>
-                <button (click)="activeTab = 'monAn'" [class.bg-blue-500]="activeTab === 'monAn'"
-                    class="px-4 py-2 mr-2 text-white bg-gray-300 rounded-lg">Danh sách món</button>
-                <button (click)="activeTab = 'thanhToan'" [class.bg-blue-500]="activeTab === 'thanhToan'"
-                    class="px-4 py-2 text-white bg-gray-300 rounded-lg">Thanh toán</button>
+                <button (click)="activeTab = 'thongTinBan'"
+                    [ngClass]="{'bg-blue-500 text-white': activeTab === 'thongTinBan', 'bg-gray-300 text-black': activeTab !== 'thongTinBan'}"
+                    class="px-4 py-2 mr-2 rounded-lg">
+                    Thông tin bàn
+                </button>
+
+                <button (click)="activeTab = 'monAn'"
+                    [ngClass]="{'bg-blue-500 text-white': activeTab === 'monAn', 'bg-gray-300 text-black': activeTab !== 'monAn'}"
+                    class="px-4 py-2 mr-2 rounded-lg">
+                    Danh sách món
+                </button>
+
+                <button (click)="activeTab = 'quanLyMon'" 
+                   [ngClass]="{'bg-blue-500 text-white': activeTab === 'quanLyMon', 'bg-gray-300 text-black': activeTab !== 'quanLyMon'}"
+                    class="px-4 py-2 mr-2 rounded-lg">
+                    Quản lý món
+                </button>
+
+                <button (click)="activeTab = 'thanhToan'"
+                    [ngClass]="{'bg-blue-500 text-white': activeTab === 'thanhToan', 'bg-gray-300 text-black': activeTab !== 'thanhToan'}"
+                    class="px-4 py-2 rounded-lg">
+                    Thanh toán
+                </button>
             </div>
 
-            <!-- Nội dung tab: Thông tin bàn -->
-            <div *ngIf="activeTab === 'thongTinBan'">
-                <h2 class="text-xl font-bold mb-4">Thông tin bàn</h2>
+            <!-- Nội dung cuộn -->
+            <div class="overflow-y-auto flex-grow">
+                
+                <!-- Nội dung tab: Thông tin bàn -->
+                <div *ngIf="activeTab === 'thongTinBan'">
+                    <h2 class="text-xl font-bold mb-4">Thông tin bàn</h2>
 
-                <!-- Hiển thị thông tin chi tiết của bàn -->
-                <div class="mb-4">
-                    <p><strong>Tên bàn:</strong> {{ tenBan }}</p>
-                    <p><strong>Trạng thái:</strong> {{ trangThaiBan }}</p>
+                    <!-- Container thông tin bàn -->
+                    <div class="p-4 border rounded-lg shadow-lg mb-4">
+                        <h3 class="text-lg font-bold mb-2">Thông tin cơ bản</h3>
+                        <div class="mb-2">
+                            <p><strong>Tên bàn:</strong> {{ tenBan }}</p>
+                            <p><strong>Trạng thái:</strong> {{ trangThaiBan }}</p>
+                        </div>
+
+                        <!-- Thay đổi trạng thái của bàn -->
+                        <div class="mb-4">
+                            <label for="trangThai" class="block font-medium mb-2">Thay đổi trạng thái bàn:</label>
+                            <select id="trangThai" [(ngModel)]="trangThaiBan" (change)="thayDoiTrangThaiBan(trangThaiBan)"
+                                class="border p-2 rounded w-full">
+                                <option *ngFor="let tt of trangThaiOptions" [value]="tt">{{ tt }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin đặt trước (nếu trạng thái là "Đã đặt") -->
+                    <div *ngIf="trangThaiBan === 'Đã đặt'" class="p-4 border rounded-lg shadow-lg">
+                        <h3 class="text-lg font-bold mb-2">Thông tin đặt trước</h3>
+                        <div class="mb-2">
+                            <p><strong>Họ tên:</strong> {{ thongTinDat.hoTen }}</p>
+                            <p><strong>Số điện thoại:</strong> {{ thongTinDat.soDienThoai }}</p>
+                            <p><strong>Thời gian đến:</strong> {{ thongTinDat.thoiGianDen }}</p>
+                            <p><strong>Số lượng người lớn:</strong> {{ thongTinDat.soNguoiLon }}</p>
+                            <p><strong>Số lượng trẻ em:</strong> {{ thongTinDat.soTreEm }}</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Thay đổi trạng thái của bàn -->
-                <div class="mb-4">
-                    <label for="trangThai">Thay đổi trạng thái bàn:</label>
-                    <select id="trangThai" [(ngModel)]="trangThaiBan" (change)="thayDoiTrangThaiBan(trangThaiBan)"
-                        class="border p-2 rounded">
-                        <option *ngFor="let tt of trangThaiOptions" [value]="tt">{{ tt }}</option>
-                    </select>
+
+                <!-- Nội dung tab: Danh sách món ăn -->
+                <div *ngIf="activeTab === 'monAn'">
+                    <h2 class="text-xl font-bold mb-4">Danh sách món ăn</h2>
+                    <ul class="grid grid-cols-2 gap-4">
+                        <li *ngFor="let monAn of danhSachMonAn" class="border p-4 rounded-lg flex flex-col">
+                            <!-- Hình ảnh món ăn ở phía trên -->
+                            <img [src]="monAn.imageUrl" alt="{{monAn.tenMon}}" class="w-full h-32 object-cover rounded-lg mb-4">
+
+                            <!-- Bên dưới: Tên món và nút chọn -->
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-bold">{{ monAn.tenMon }}</span>
+                                <button (click)="chonMon(monAn)" [disabled]="monAn.daChon"
+                                    class="px-4 py-2 bg-blue-500 text-white rounded-lg">
+                                    {{ monAn.daChon ? 'Đã chọn' : 'Chọn' }}
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- Nếu bàn ở trạng thái đặt trước, hiển thị thông tin đặt -->
-                <div *ngIf="trangThaiBan === 'Đã đặt'">
-                    <h3 class="text-lg font-bold mb-2">Thông tin đặt trước</h3>
-                    <p><strong>Họ tên:</strong> {{ thongTinDat.hoTen }}</p>
-                    <p><strong>Số điện thoại:</strong> {{ thongTinDat.soDienThoai }}</p>
-                    <p><strong>Thời gian đến:</strong> {{ thongTinDat.thoiGianDen }}</p>
-                    <p><strong>Số lượng người lớn:</strong> {{ thongTinDat.soNguoiLon }}</p>
-                    <p><strong>Số lượng trẻ em:</strong> {{ thongTinDat.soTreEm }}</p>
-                </div>
-            </div>
+                        <div *ngIf="activeTab === 'quanLyMon'">
+                            <h2 class="text-xl font-bold mb-4">Quản lý món</h2>
 
-            <!-- Nội dung tab: Danh sách món ăn -->
-            <div *ngIf="activeTab === 'monAn'">
-                <h2 class="text-xl font-bold mb-4">Danh sách món ăn</h2>
-                <ul class="grid grid-cols-2 gap-4">
-                    <li *ngFor="let monAn of danhSachMonAn"
-                        class="border p-4 rounded-lg flex justify-between items-center">
-                        <span>{{ monAn.tenMon }}</span>
-                        <button (click)="chonMon(monAn)" [disabled]="monAn.daChon"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-lg">
-                            {{ monAn.daChon ? 'Đã chọn' : 'Chọn' }}
-                        </button>
-                    </li>
-                </ul>
-            </div>
+                            <!-- Danh sách món chưa lên -->
+                            <h3 class="text-lg font-semibold mb-2">Món chưa lên</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div *ngFor="let order of danhSachDatMon" [ngClass]="{ 'hidden': order.trangThai !== 'Chưa lên' }"
+                                    class="p-4 border rounded-lg shadow">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span>{{ order.tenMon }} - {{ order.soLuong }} phần</span>
+                                        <button (click)="capNhatTrangThaiOrder(order)" class="px-2 py-1 bg-blue-500 text-white rounded-lg">
+                                            Đã lên
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
 
-            <!-- Nội dung tab: Thanh toán -->
-            <div *ngIf="activeTab === 'thanhToan'">
-                <h2 class="text-xl font-bold mb-4">Thanh toán</h2>
-                <!-- Hiển thị mã QRCode -->
-                <div class="flex flex-col items-center">
-                    <!-- Hiển thị ảnh QR code -->
-                    <img [src]="qrData" alt="QR Code" width="400" height="400" class="mb-4" />
+                            <!-- Danh sách món đã lên -->
+                            <h3 class="text-lg font-semibold mt-6 mb-2">Món đã lên</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div *ngFor="let order of danhSachDatMon" [ngClass]="{ 'hidden': order.trangThai !== 'Đã lên' }"
+                                    class="p-4 border rounded-lg shadow">
+                                    <div class="flex justify-between items-center">
+                                        <span>{{ order.tenMon }} - {{ order.soLuong }} phần</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <!-- Thông tin thanh toán -->
-                    <p class="text-lg font-semibold">Ngân hàng: Techcombank</p>
-                    <p class="text-lg font-semibold">Số tài khoản: {{ accountNumber }}</p>
-                    <p class="text-lg font-semibold">Số tiền: {{ amount.toLocaleString('vi-VN') }} VND</p>
-                    <p class="text-lg font-semibold">Nội dung CK: {{ transferContent }}</p>
 
-                    <!-- Nút in hóa đơn -->
-                    <button (click)="inBill()"
-                        class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg">In hóa đơn</button>
+
+                <!-- Nội dung tab: Thanh toán -->
+                <div *ngIf="activeTab === 'thanhToan'">
+                    <h2 class="text-xl font-bold mb-4">Thanh toán</h2>
+                    <div class="flex flex-col items-center">
+                        <img [src]="qrData" alt="QR Code" width="400" height="400" class="mb-4" />
+                        <p class="text-lg font-semibold">Ngân hàng: Techcombank</p>
+                        <p class="text-lg font-semibold">Số tài khoản: {{ accountNumber }}</p>
+                        <p class="text-lg font-semibold">Số tiền: {{ amount.toLocaleString('vi-VN') }} VND</p>
+                        <p class="text-lg font-semibold">Nội dung CK: {{ transferContent }}</p>
+                        <button (click)="inBill()" class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg">In hóa
+                            đơn</button>
+                    </div>
                 </div>
             </div>
         </div>

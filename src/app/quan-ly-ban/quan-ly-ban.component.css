@@ -30,7 +30,7 @@
 }
 
 ::ng-deep .custom-dialog-container {
-    width: 1500px !important;
+    width: 1300px !important;
     /* Đặt chiều rộng modal */
     height: auto !important;
     /* Đảm bảo chiều cao tự động */
