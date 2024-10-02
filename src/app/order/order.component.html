@@ -40,8 +40,13 @@
                                 {{ ((mon.soLuong || 0) * (mon.donGia || 0)).toLocaleString('vi-VN') }} VND
                             </td>
                             <td class="py-2 text-right">
-                                <button (click)="xoaMon(mon)" class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                                <button (click)="xoaMon(mon)" class="px-2 py-1 rounded">
+                                    <!-- Biểu tượng trash với màu đỏ và kích thước nhỏ hơn -->
+                                    <i class="fas fa-trash w-4 h-4 text-red-500"></i>
+                                </button>
                             </td>
+
+
                         </tr>
                     </tbody>
                 </table>
