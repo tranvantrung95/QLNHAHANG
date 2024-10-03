@@ -10,7 +10,7 @@
             <h2 class="text-xl font-bold mb-4">Danh sách món đặt</h2>
 
             <!-- Phần tiêu đề cố định -->
-            <table class="w-full table-auto">
+            <!-- <table class="w-full table-auto">
                 <thead class="sticky top-0">
                     <tr>
                         <th class="text-left">Tên món</th>
@@ -20,11 +20,20 @@
                         <th class="text-right">Xóa</th>
                     </tr>
                 </thead>
-            </table>
+            </table> -->
 
             <!-- Phần thân danh sách món với cuộn dọc -->
             <div class="overflow-y-auto flex-grow">
                 <table class="w-full table-auto">
+                    <thead class="sticky top-0 bg-gray-50">
+                        <tr>
+                            <th class="text-left">Tên món</th>
+                            <th class="text-center">Số lượng</th>
+                            <th class="text-center">Đơn giá</th>
+                            <th class="text-right">Thành tiền</th>
+                            <th class="text-right">Xóa</th>
+                        </tr>
+                    </thead> 
                     <tbody>
                         <tr *ngFor="let mon of danhSachDatMon" class="border-b">
                             <td class="py-2">{{ mon.tenMon }}</td>
@@ -35,9 +44,9 @@
                                 <button (click)="tangSoLuong(mon)"
                                     class="px-2 py-1 bg-green-500 text-white rounded">+</button>
                             </td>
-                            <td class="py-2 text-center">{{ mon.donGia.toLocaleString('vi-VN') }} VND</td>
+                            <td class="py-2 text-center">{{ mon.donGia.toLocaleString('vi-VN') }}</td>
                             <td class="py-2 text-right font-bold">
-                                {{ ((mon.soLuong || 0) * (mon.donGia || 0)).toLocaleString('vi-VN') }} VND
+                                {{ ((mon.soLuong || 0) * (mon.donGia || 0)).toLocaleString('vi-VN') }}
                             </td>
                             <td class="py-2 text-right">
                                 <button (click)="xoaMon(mon)" class="px-2 py-1 rounded">
@@ -45,8 +54,6 @@
                                     <i class="fas fa-trash w-4 h-4 text-red-500"></i>
                                 </button>
                             </td>
-
-
                         </tr>
                     </tbody>
                 </table>
@@ -157,6 +164,7 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div *ngFor="let order of danhSachDatMon" [ngClass]="{ 'hidden': order.trangThai !== 'Chưa lên' }"
                                     class="p-4 border rounded-lg shadow">
+                                    <img [src]="order.imageUrl" alt="{{order.tenMon}}" class="w-full h-32 object-cover rounded-lg mb-4">
                                     <div class="flex justify-between items-center mb-2">
                                         <span>{{ order.tenMon }} - {{ order.soLuong }} phần</span>
                                         <button (click)="capNhatTrangThaiOrder(order)" class="px-2 py-1 bg-blue-500 text-white rounded-lg">
@@ -171,6 +179,7 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div *ngFor="let order of danhSachDatMon" [ngClass]="{ 'hidden': order.trangThai !== 'Đã lên' }"
                                     class="p-4 border rounded-lg shadow">
+                                    <img [src]="order.imageUrl" alt="{{order.tenMon}}" class="w-full h-32 object-cover rounded-lg mb-4">
                                     <div class="flex justify-between items-center">
                                         <span>{{ order.tenMon }} - {{ order.soLuong }} phần</span>
                                     </div>

@@ -1,0 +1,84 @@
+/* Đặt chiều rộng của cột thời gian */
+.fc-timegrid-slot {
+    width: 80px;
+    /* Tăng chiều rộng của cột thời gian */
+}
+
+/* Tùy chỉnh tiêu đề */
+.fc-toolbar-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Tùy chỉnh màu nền của ngày hiện tại */
+.fc-day-today {
+    background-color: #ffffe0;
+    /* Màu nền nhẹ cho ngày hiện tại */
+}
+
+/* Tùy chỉnh nút điều hướng */
+.fc-button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    border: none;
+}
+
+.fc-button:hover {
+    background-color: #0056b3;
+}
+
+/* Tùy chỉnh sự kiện */
+.fc-event {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.fc-event:hover {
+    background-color: #0056b3;
+}
+
+/* Căn giữa số giờ trong cột bên trái */
+.fc-timegrid-axis-cushion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    /* Đảm bảo rằng số giờ chiếm toàn bộ chiều cao của ô */
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Đường chỉ thời gian hiện tại (dòng đỏ) */
+.fc-now-indicator {
+    background-color: red;
+    height: 2px;
+    /* Làm cho đường chỉ hiện tại dễ thấy hơn */
+}
+
+/* Căn giữa số giờ trong cột bên trái và loại bỏ khoảng cách chia đôi */
+.fc-timegrid-axis-cushion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    /* Đảm bảo mỗi ô giờ chiếm toàn bộ chiều cao */
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Gộp ô giờ của cột giờ bên trái */
+.fc-timegrid-slot-label {
+    grid-row: span 2;
+    /* Gộp 2 ô 30 phút thành 1 ô giờ đầy đủ */
+}
+
+/* Đường chỉ thời gian hiện tại (dòng đỏ) */
+.fc-now-indicator {
+    background-color: red;
+    height: 2px;
+}

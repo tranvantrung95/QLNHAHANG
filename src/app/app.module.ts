@@ -9,6 +9,10 @@ import { OrderComponent } from './order/order.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Thêm phần này
 import { MatDialogModule } from '@angular/material/dialog'; // Thêm phần này
 import { QRCodeModule } from 'angularx-qrcode';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { QuanLyDatBanComponent } from './quan-ly-dat-ban/quan-ly-dat-ban.component';
 
 
 @NgModule({
@@ -22,6 +26,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     BrowserAnimationsModule, // Đảm bảo đã thêm BrowserAnimationsModule
     MatDialogModule,
     QRCodeModule,
+    FullCalendarModule,
+    QuanLyDatBanComponent,
   ],
   bootstrap: [],
 })
