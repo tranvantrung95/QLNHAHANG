@@ -1,0 +1,85 @@
+<div class="w-full h-screen bg-gray-900 p-8">
+    <!-- Header với Nút Lưu và Đóng -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-white text-xl font-semibold">Cuộc họp mới</h1>
+        <div class="flex space-x-4">
+            <button class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg">
+                Đóng
+            </button>
+            <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-6 rounded-lg">
+                Lưu
+            </button>
+        </div>
+    </div>
+
+    <!-- Các trường nhập thông tin -->
+    <div class="space-y-6 w-full">
+        <!-- Nhập tên hoặc email -->
+        <div>
+            <label class="block text-gray-300 mb-2">Cập nhật thông tin</label>
+            <input type="text" placeholder="Nhập tên, email hoặc số điện thoại"
+                class="w-full p-3 rounded-lg bg-gray-800 text-white border-none">
+        </div>
+
+        <!-- Ngày bắt đầu và Giờ bắt đầu -->
+        <div class="flex items-center space-x-4">
+            <!-- Icon thời gian -->
+            <i class="fas fa-clock text-gray-300"></i>
+
+            <!-- Ngày bắt đầu -->
+            <div class="flex items-center space-x-2">
+                <input type="date" class="bg-gray-800 text-white p-2 rounded-md w-50">
+                <input type="time" class="bg-gray-800 text-white p-2 rounded-md w-30" step="60" required
+                    (change)="onTimeChange($event, true)">
+                <!-- Sử dụng step để tăng theo từng phút -->
+            </div>
+
+            <!-- Mũi tên -->
+            <span class="text-gray-300">→</span>
+
+            <!-- Ngày kết thúc -->
+            <div class="flex items-center space-x-2">
+                <input type="date" class="bg-gray-800 text-white p-2 rounded-md w-50">
+                <input type="time" class="bg-gray-800 text-white p-2 rounded-md w-30" step="60" required
+                    (change)="onTimeChange($event, false)">
+            </div>
+
+            <!-- Độ dài thời gian -->
+            <div>
+                <span class="text-gray-300">1 giờ 30 phút</span>
+            </div>
+
+            <!-- Checkbox cả ngày -->
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" class="form-checkbox bg-gray-800">
+                <label class="text-gray-300">Cả ngày</label>
+            </div>
+        </div>
+
+        <!-- Các trường khác -->
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center">
+                <input type="checkbox" id="no-repeat" class="mr-2 rounded bg-gray-800 text-indigo-600">
+                <label for="no-repeat" class="text-gray-300">Không lặp lại</label>
+            </div>
+            <div class="flex items-center">
+                <input type="checkbox" id="all-day" class="mr-2 rounded bg-gray-800 text-indigo-600">
+                <label for="all-day" class="text-gray-300">Cả ngày</label>
+            </div>
+        </div>
+
+        <!-- Thêm vị trí -->
+        <div>
+            <label class="block text-gray-300 mb-2">Thêm vị trí</label>
+            <input type="text" placeholder="Thêm vị trí"
+                class="w-full p-3 rounded-lg bg-gray-800 text-white border-none">
+        </div>
+
+        <!-- Mô tả chi tiết -->
+        <div>
+            <label class="block text-gray-300 mb-2">Mô tả chi tiết</label>
+            <textarea rows="4" placeholder="Nhập chi tiết cho cuộc họp mới này"
+                class="w-full p-3 rounded-lg bg-gray-800 text-white border-none"></textarea>
+        </div>
+    </div>
+</div>

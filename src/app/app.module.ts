@@ -13,6 +13,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { QuanLyDatBanComponent } from './quan-ly-dat-ban/quan-ly-dat-ban.component';
+import {ThemDatBanComponent} from './them-dat-ban/them-dat-ban.component';
 
 
 @NgModule({
@@ -22,12 +23,14 @@ import { QuanLyDatBanComponent } from './quan-ly-dat-ban/quan-ly-dat-ban.compone
     RouterModule.forRoot(routes), // Đặt RouterModule ở đây để cấu hình routing
     RouterModule.forRoot([
       { path: 'order', component: OrderComponent }, // Định tuyến đến OrderComponent
+      {path: 'them-dat-ban', component: ThemDatBanComponent},
     ]),
     BrowserAnimationsModule, // Đảm bảo đã thêm BrowserAnimationsModule
     MatDialogModule,
     QRCodeModule,
     FullCalendarModule,
     QuanLyDatBanComponent,
+    ThemDatBanComponent,
   ],
   bootstrap: [],
 })

@@ -1,23 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, TemplateRef,ViewEncapsulation  } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; 
+import dayGridPlugin from '@fullcalendar/daygrid';  // Plugin hiển thị lịch tháng
 import timeGridPlugin from '@fullcalendar/timegrid'; // Plugin timeGrid để hiển thị lịch theo tuần
 import interactionPlugin from '@fullcalendar/interaction'; 
 import { CalendarOptions } from '@fullcalendar/core';
 import viLocale from '@fullcalendar/core/locales/vi';  // Để sử dụng ngôn ngữ tiếng Việt
+import {ThemDatBanComponent} from '../them-dat-ban/them-dat-ban.component';
+import { RouterModule } from '@angular/router'; //Thêm router mới định tuyến được
 
 @Component({
   selector: 'app-quan-ly-dat-ban',
   standalone: true,
-  imports: [FullCalendarModule],
+  imports: [FullCalendarModule, ThemDatBanComponent,RouterModule],
   templateUrl: './quan-ly-dat-ban.component.html',
   styleUrls: ['./quan-ly-dat-ban.component.css'],
 })
 export class QuanLyDatBanComponent {
 
-calendarOptions: CalendarOptions = {
-    plugins: [timeGridPlugin, interactionPlugin], // Sử dụng timeGrid để hiển thị tuần làm việc
-    initialView: 'timeGridWeek',  // Hiển thị lịch theo tuần làm việc
-    locale: viLocale,  // Hiển thị ngôn ngữ tiếng Việt
+  @ViewChild('eventContent', { static: true }) eventContent!: TemplateRef<any>;  // Tham chiếu tới ng-template
+
+  calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin,timeGridPlugin, interactionPlugin],  // Sử dụng các plugin cần thiết
+    initialView: 'timeGridWeek',
+    locale: viLocale,  // Sử dụng ngôn ngữ tiếng Việt
     slotMinTime: '08:00:00',  // Thiết lập giờ bắt đầu hiển thị (8h sáng)
     slotMaxTime: '21:00:00',  // Thiết lập giờ kết thúc hiển thị (21h tối)
     slotDuration: '00:30:00',  // Chia các slot thời gian thành 30 phút trong cột ngày
@@ -26,15 +31,21 @@ calendarOptions: CalendarOptions = {
     allDaySlot: false,  // Ẩn hiển thị "Cả ngày"
     editable: true,  // Cho phép kéo thả sự kiện
     selectable: true,  // Cho phép chọn slot
+    height: '100%',  // FullCalendar sẽ tự động điều chỉnh chiều cao theo nội dung
+    stickyHeaderDates: true,  // Giữ cố định tên cột ngày khi cuộn
     headerToolbar: {
-      left: 'today prev,next',  // Nút điều hướng
+      left: 'prev,next today',  // Nút điều hướng
       center: 'title',  // Tiêu đề ở giữa
-      right: 'timeGridWeek'  // Hiển thị nút để chọn chế độ tuần làm việc
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'  // Nút chuyển đổi giữa tháng, tuần, ngày
     },
     events: [
-      { title: 'Bàn 1', start: '2024-10-02T17:00:00', end: '2024-10-02T18:00:00' },
+      { title: 'Bàn 1', start: '2024-10-04T17:00:00', end: '2024-10-04T17:30:00' },
       { title: 'Bàn 2', start: '2024-10-03T19:00:00', end: '2024-10-03T20:00:00' }
-    ]
+    ],
+    eventContent: (arg: any) => {  // Tùy chỉnh nội dung sự kiện bằng template
+      const template = this.eventContent.createEmbeddedView(arg);
+      return { domNodes: [template.rootNodes[0]] };
+    }
   };
 
 }

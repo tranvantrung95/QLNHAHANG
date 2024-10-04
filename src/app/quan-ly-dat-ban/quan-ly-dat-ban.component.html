@@ -1,6 +1,26 @@
-<full-calendar [options]="calendarOptions">
-    <ng-template #eventContent let-arg>
-        <b>{{arg.timeText}}</b>
-        <i>{{arg.event.title}}</i>
-    </ng-template>
-</full-calendar>
+<!-- Thanh tiêu đề và nút thêm đặt bàn -->
+<div class="flex items-center justify-between rounded-lg bg-purple-700 p-4">
+    <!-- Icon lịch bên trái với nền màu indigo-500 -->
+    <div class="flex items-center">
+        <div class="bg-indigo-500 rounded-lg py-1 px-2">
+            <i class="fas fa-calendar-alt text-white text-2xl"></i> <!-- Icon lịch -->
+        </div>
+        <h1 class="text-white text-xl font-semibold ml-3">Lịch</h1> <!-- Tiêu đề -->
+    </div>
+
+    <!-- Nút thêm đặt bàn bên phải với icon dấu cộng -->
+    <button routerLink="/them-dat-ban" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded flex items-center">
+        <i class="fas fa-plus mr-2"></i> <!-- Icon dấu cộng -->
+        Thêm đặt bàn
+    </button>
+</div>
+
+<!-- FullCalendar component với chiều cao cố định và scroll -->
+<div class="p-4" style="height: 545px; overflow-y: auto;"> <!-- Đặt chiều cao cố định và cho phép scroll -->
+    <full-calendar [options]="calendarOptions">
+        <ng-template #eventContent let-arg>
+            <b>{{arg.timeText}}</b> <!-- Hiển thị thời gian sự kiện -->
+            <i>{{arg.event.title}}</i> <!-- Hiển thị tiêu đề sự kiện -->
+        </ng-template>
+    </full-calendar>
+</div>

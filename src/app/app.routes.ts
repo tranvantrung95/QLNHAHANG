@@ -3,6 +3,7 @@ import { QuanLyBanComponent } from './quan-ly-ban/quan-ly-ban.component'; // Imp
 import { DashboardComponent } from './dashboard/dashboard.component'; // Import component Dashboard
 import { OrderComponent } from './order/order.component';
 import {QuanLyDatBanComponent} from './quan-ly-dat-ban/quan-ly-dat-ban.component';
+import {ThemDatBanComponent} from './them-dat-ban/them-dat-ban.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -10,4 +11,5 @@ export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Đường dẫn mặc định
   { path: 'order', component: OrderComponent }, // Đường dẫn đến OrderComponent
   {path: 'quan-ly-dat-ban', component:QuanLyDatBanComponent},
+  {path: 'them-dat-ban', component:ThemDatBanComponent},
 ];
